@@ -3,7 +3,7 @@
 using namespace std;
 
 int main(){
-    int N=128;//要大于64，因为设置了h=64
+    int N=16;//要大于64，因为设置了h=64
     int M=N*2;
     int scale=pow(2,3);//太大了q会溢出，变成0
     vector<int>moduli={static_cast<int>(scale * pow(2,5)), scale, static_cast<int>(scale * pow(2,5))};//模链

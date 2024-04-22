@@ -18,11 +18,15 @@ std::pair<Polynomial<double>, Polynomial<double>> Keygen::generate_public_key(co
 }
 
 std::pair<Polynomial<double>, Polynomial<double>> Keygen::generate_relin_key(const Polynomial<double>& s) {
-    // Polynomial<int> a = context.uniform.sample_manually(context.q * context.special_prime);
     Polynomial<double> a= sampler.UniformPolynomial(context.get_q() * context.get_special_prime());
     Polynomial<double> e = sampler.DG();
 
     Polynomial<double> b = -(a * s) + e + context.get_special_prime() * s * s;
+    std::cout<<"get_special_prime="<<context.get_special_prime()<<std::endl;
     std::pair<Polynomial<double>, Polynomial<double>> relin_key = std::make_pair(b, a);
+    std::cout<<"生成的重线性化密钥relin_key[0]："<<std::endl;
+    b.print();
+    std::cout<<"生成的重线性化密钥relin_key[1]："<<std::endl;
+    a.print();
     return relin_key;
 }

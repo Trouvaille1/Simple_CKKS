@@ -15,7 +15,7 @@
 //     xi = std::exp(std::complex<double>(0.0, angle));
 // }
 
-CKKSEncoder::CKKSEncoder(int M, double scale) : M(M), scale(scale) {
+CKKSEncoder::CKKSEncoder(int M, double scale) : M(M), scale(scale), slot_count(M/4) {
     double angle = 2 * M_PI / M;
     xi = std::exp(std::complex<double>(0.0, angle));
     create_sigma_R_basis();
@@ -157,8 +157,8 @@ std::vector<double> CKKSEncoder::coordinate_wise_random_rounding(const std::vect
     std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
     std::vector<double> r = round_coordinates(coordinates); // 获取坐标的舍入小数部分
-    std::cout<<"小数部分:"<<std::endl;
-    print_vector(r);
+    // std::cout<<"小数部分:"<<std::endl;
+    // print_vector(r);
     std::vector<double> rounded_coordinates(r.size());
 
      for (size_t i = 0; i < r.size(); ++i) {

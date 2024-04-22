@@ -17,6 +17,7 @@ private:
     int M;
     double scale;
     std::vector<std::vector<std::complex<double>>> sigma_R_basis;
+    int slot_count; 
 
     static std::vector<std::vector<std::complex<double>>> vandermonde(std::complex<double> xi, int M);
 
@@ -24,6 +25,7 @@ public:
     CKKSEncoder() = default;
     // explicit CKKSEncoder(int M);
     CKKSEncoder(int M, double scale);
+    [[nodiscard]] int get_slot_count() const{return slot_count;}
 
     Polynomial<std::complex<double>> sigma_inverse(std::vector<std::complex<double>>& b);
     std::vector<std::complex<double>> sigma(Polynomial<std::complex<double>>& p);

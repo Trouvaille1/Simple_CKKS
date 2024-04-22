@@ -11,7 +11,7 @@ CKKSEncryptor::CKKSEncryptor(Context context, std::pair<Polynomial<double>, Poly
     auto e0=sampler.DG();
     auto e1=sampler.DG();
 
-    auto v_pk=std::make_pair(pk.first*v,pk.second*v+e1);
+    auto v_pk=std::make_pair(pk.first*v,pk.second*v);
     auto ctx=std::make_pair(v_pk.first+e0+ptx,v_pk.second+e1);
     return ctx;
  }
