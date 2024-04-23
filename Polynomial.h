@@ -5,6 +5,7 @@
 #ifndef SIMPLE_CKKS_POLYNOMIAL_H
 #define SIMPLE_CKKS_POLYNOMIAL_H
 
+#include <cstdint>
 #include <iostream>
 #include <vector>
 #include <complex>
@@ -104,6 +105,20 @@ public:
 
         remainder = Polynomial(resultCoeffs);
         return remainder;        
+    }
+
+    Polynomial operator%(int64_t modulus) const{
+        std::vector<int64_t> resultCoeffs(coefficients.size(), 0);
+
+        for (int i = 0; i < coefficients.size(); ++i) {
+            resultCoeffs[i] = static_cast<int64_t>(coefficients[i]) % modulus;
+        }
+
+        std::vector<T> resultCoeffs2(coefficients.size(), 0);
+        for (int i = 0; i < coefficients.size(); ++i) {
+            resultCoeffs2[i] = resultCoeffs[i];
+        }
+        return Polynomial(resultCoeffs2);
     }
 
 

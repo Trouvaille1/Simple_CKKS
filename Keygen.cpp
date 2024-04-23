@@ -8,7 +8,7 @@ Polynomial<double> Keygen::generate_secret_key() {
 
 std::pair<Polynomial<double>, Polynomial<double>> Keygen::generate_public_key(const Polynomial<double>& s) {
     Polynomial<double> a = sampler.UniformPolynomial();
-    Polynomial<double> e = sampler.DG();
+    Polynomial<double> e = sampler.DG();//高斯分布多项式
 
     Polynomial<double> b = -(a * s) + e;
 
@@ -18,11 +18,16 @@ std::pair<Polynomial<double>, Polynomial<double>> Keygen::generate_public_key(co
 }
 
 std::pair<Polynomial<double>, Polynomial<double>> Keygen::generate_relin_key(const Polynomial<double>& s) {
-    Polynomial<double> a= sampler.UniformPolynomial(context.get_q() * context.get_special_prime());
+    Polynomial<double> a= sampler.UniformPolynomial(context.get_q() * context.get_special_prime());//a从Rp*q中采样
     Polynomial<double> e = sampler.DG();
 
-    Polynomial<double> b = -(a * s) + e + context.get_special_prime() * s * s;
-    std::cout<<"get_special_prime="<<context.get_special_prime()<<std::endl;
+    Polynomial<double> b = -(a * s) + e + pow(2,12) * s * s;
+    // std::cout<<"get_special_prime="<<context.get_special_prime()<<std::endl;
+    //(b,a)要Mod p*qL
+    b=b%(pow(2,12)*context.get_special_prime());
+    a=a%(pow(2,12) * context.get_special_prime());
+    std::cout<<"p*q="<<context.get_q() * context.get_special_prime()<<std::endl;
+
     std::pair<Polynomial<double>, Polynomial<double>> relin_key = std::make_pair(b, a);
     std::cout<<"生成的重线性化密钥relin_key[0]："<<std::endl;
     b.print();
